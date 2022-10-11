@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navleft">
+            <h2><a href="/">Gift A Smile</a></h2>
+        </div>
+        <div class="navright">
+            <p class="login">Login</p>
+            <p class="register">Register</p>
+        </div>
+    </div>
+
+    <!--forms-->
+    <form class="loginForm hide">
+        <div class="inputfield">
+            <label for="email">Email</label>
+            <input type="text" class="email" />
+        </div>
+        <div class="inputfield">
+            <label for="password">Password</label>
+            <input type="text" class="password" />
+        </div>
+        <button>Login</button>
+    </form>
+
+    <form class="registerForm hide">
+        <div class="inputfield">
+            <label for="email">Email</label>
+            <input type="text" class="email" />
+        </div>
+        <div class="inputfield">
+            <label for="password">Password</label>
+            <input type="text" class="password" />
+        </div>
+        <button>Register</button>
+    </form>
+
+
+    <!--end of forms-->
+
+    <div class="banner">
+        <h2>Gift A Smile</h2>
+        <p>Become The Reason For Someone's Happiness</p>
+    </div>
+    <div class="userdata">
+        <div class="userdatatable">
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Ashwin Needs Pen</p>
+                <button>Donate</button>
+            </div>
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Ashwin Needs Book</p>
+                <button><a href="./details.html">Donate</a></button>
+            </div>
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Ashwin Needs Shoes</p>
+                <button>Donate</button>
+            </div>
+
+        </div>
+        <div class="userdatatable">
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Preeti Needs Braces</p>
+                <button>Donate</button>
+            </div>
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Ashwin Needs Toy </p>
+                <button>Donate</button>
+            </div>
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Ashwin Needs Shirt</p>
+                <button>Donate</button>
+            </div>
+
+        </div>
+        <div class="userdatatable">
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Prabhu Needs Pen</p>
+                <button>Donate</button>
+            </div>
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Peter Needs Biscuits</p>
+                <button>Donate</button>
+            </div>
+            <div class="userimage">
+                <img src="./images/kid.jpg" />
+            </div>
+            <div class="usertext">
+                <p>Ram Needs Schoolbag</p>
+                <button>Donate</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.login').addEventListener('click', function () {
+            document.querySelector('.loginForm').classList.toggle('hide');
+            document.querySelector('.registerForm').classList.add('hide');
+        })
+
+        document.querySelector('.register').addEventListener('click', function () {
+            
+            document.querySelector('.registerForm').classList.toggle('hide');
+            document.querySelector('.loginForm').classList.add('hide');
+        })
+    </script>
+</body>
+</html>

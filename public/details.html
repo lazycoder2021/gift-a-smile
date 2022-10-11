@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .userdetails{
+            padding:20px;
+            border-radius:10px;
+        }
+
+        .hide{
+            display:none; 
+        }
+
+        .confirmPaymentBox {
+            border:1px solid black;
+            padding:10px 20px;
+            width:300px;
+            margin:20px auto 0px;
+            text-align:center; 
+            border-radius:10px;
+        }
+
+        .okBtn{
+            border:1px solid black;
+            padding:5px 10px;
+            width:100px;
+            margin:20px auto 0px;
+            cursor:pointer; 
+        }
+
+
+        @media only screen and (max-width:500px) {
+            body{
+                //background-color:red; 
+            }
+
+            .userdetails{
+                width:300px; 
+                height:auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navleft">
+            <h2><a href="/">Gift A Smile</a></h2>
+        </div>
+        <div class="navright">
+            <p class="logout">Logout</p>
+            
+        </div>
+    </div>
+    <div class="userdetails">
+        <h2 class="need">Details page</h2>
+        <p class="desc"></p>
+        <select class="amount">
+            <option>--select an amount--</option>
+            <option value="125">125</option>
+            <option value="500">500</option>
+            <option value="750">750</option>
+            <option value="1000">1000</option>
+        </select>
+        <button class="donateBtn">Donate Now</button>
+        <div class="confirmPaymentBox hide">
+            Confirm Payment of <span class="amtConfirm"></span>? 
+            <p class="okBtn">OK</p>
+        </div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            //alert('hi...')
+            var query = window.location.search;
+            console.log(query)
+            var parameters = new URLSearchParams(query);
+
+            var id = parameters.get('id');
+            console.log(id)
+
+            fetch(`https://gift-a-smile.herokuapp.com/get/${id}`)
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log(data)
+                    console.log(data.kid[0].desc)
+                    console.log(data.kid[0].requirement)
+                    document.querySelector('.need').innerText = data.kid[0].requirement;
+                    document.querySelector('.desc').innerText = data.kid[0].desc;
+                })
+        })
+
+        var amountValue;
+        var orderId; 
+
+        document.querySelector('.donateBtn').addEventListener('click', function (e) {
+            e.preventDefault(); 
+            //alert('being clicked...')
+            amountValue = Number(document.querySelector('.amount').value);
+            console.log(amountValue)
+
+            const response = fetch('https://gift-a-smile.herokuapp.com/order', {
+                'method': 'POST',
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": JSON.stringify({
+                    "amount": amountValue
+                })
+            }).then((res) => {
+                return res.json();
+                //console.log(res)
+            }).then((data) => {
+                console.log(data)
+                if (data.msg == 'access denied') {
+                    alert('please sign up/login to donate')
+                }
+
+                console.log(data.order.id)
+                orderId = data.order.id;
+                document.querySelector('.confirmPaymentBox').classList.remove('hide');
+                console.log(data.order.amount)
+                document.querySelector('.amtConfirm').innerText = data.order.amount;
+            }).catch((e) => {
+                console.log(e)
+            })
+
+
+            var options = {
+                "key": "rzp_test_obMCtlKp3EEqKX", // Enter the Key ID generated from the Dashboard
+                "amount": amountValue * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Acme Corp",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    console.log(response.razorpay_payment_id);
+                    console.log(response.razorpay_order_id);
+                    console.log(response.razorpay_signature)
+                    alert('payment successful')
+                }
+            }
+
+            var rzp1 = new Razorpay(options);
+
+            document.querySelector('.okBtn').addEventListener('click', function () {
+                
+                //alert('works')
+                rzp1.open();
+                
+            })
+
+
+        })
+
+        document.querySelector('.logout').addEventListener('click', function () {
+            //alert('hi')
+            fetch('https://gift-a-smile.herokuapp.com/logout')
+                .then((res) => {
+                    return res.json()
+                })
+                .then((data) => {
+                    console.log(data)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        })
+    </script>
+</body>
+</html>

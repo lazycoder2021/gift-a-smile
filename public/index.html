@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navleft">
+            <h2><a href="/">Gift A Smile</a></h2>
+        </div>
+        <div class="navright">
+            <p class="login">Login</p>
+            <p class="register">Register</p>
+            <p class="dash hide"><a href="./dashboard.html">Donor Dashboard</a></p>
+            <p class="logout hide">Logout</p>
+        </div>
+    </div>
+
+    <!--forms-->
+    <form class="loginForm hide">
+        <div class="inputfield">
+            <label for="email">Email</label>
+            <input type="text" class="email1" />
+        </div>
+        <div class="inputfield">
+            <label for="password">Password</label>
+            <input type="text" class="password1" />
+        </div>
+        <button>Login</button>
+    </form>
+
+    <form class="registerForm hide">
+        <div class="inputfield">
+            <label for="email">Email</label>
+            <input type="text" class="email" />
+        </div>
+        <div class="inputfield">
+            <label for="password">Password</label>
+            <input type="text" class="password" />
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+
+    <!--end of forms-->
+
+    <div class="banner">
+        <h2>Gift A Smile</h2>
+        <p>Become The Reason For Someone's Happiness</p>
+    </div>
+    <div class="userdata">
+        
+        
+        
+    </div>
+
+    <script>
+        document.querySelector('.login').addEventListener('click', function () {
+            document.querySelector('.loginForm').classList.toggle('hide');
+            document.querySelector('.registerForm').classList.add('hide');
+        })
+
+        document.querySelector('.register').addEventListener('click', function () {
+            
+            document.querySelector('.registerForm').classList.toggle('hide');
+            document.querySelector('.loginForm').classList.add('hide');
+        })
+
+        window.addEventListener('load', function () {
+            //alert('hi...')
+            fetch('https://gift-a-smile.herokuapp.com/get')
+                .then((res) => {
+                    return res.json()
+                })
+                .then((data) => {
+                    console.log(data)
+                    data.kids.map((k) => {
+                        document.querySelector('.userdata').innerHTML += `
+                            <div class="userdatatable">
+                                <div class="userimage">
+                                    <img src="./images/girl.jpg" />
+                                </div>
+                                <div class="usertext">
+                                    <p>${k.requirement}</p>
+                                    <button><a href="/details.html?id=${k._id}">Donate</a></button>
+                                </div>
+                            </div>
+                        `; 
+})
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        })
+
+        document.querySelector('.registerForm').addEventListener('submit', function (e) {
+            e.preventDefault(); 
+            //alert('registering user');
+            alert(document.querySelector('.email').value + document.querySelector('.password').value)
+            fetch('https://gift-a-smile.herokuapp.com/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: document.querySelector('.email').value, 
+                    password: document.querySelector('.password').value
+                })
+            }).then((res) => {
+                return res.json()
+            }).then((data) => {
+                console.log(data)
+            }).catch((e) => {
+                console.log(e)
+            })
+            
+        })
+
+        document.querySelector('.loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            //alert('registering user');
+            alert(document.querySelector('.email1').value + document.querySelector('.password1').value)
+            fetch('https://gift-a-smile.herokuapp.com/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: document.querySelector('.email1').value,
+                    password: document.querySelector('.password1').value
+                })
+            }).then((res) => {
+                return res.json()
+            }).then((data) => {
+                console.log(data)
+                document.querySelector('.loginForm').classList.add('hide');
+                document.querySelector('.dash').classList.remove('hide');
+                document.querySelector('.logout').classList.remove('hide'); 
+                document.querySelector('.register').classList.add('hide'); 
+                document.querySelector('.login').classList.add('hide'); 
+            }).catch((e) => {
+                console.log(e)
+            })
+
+        })
+
+        document.querySelector('.logout').addEventListener('click', function () {
+            //alert('logging out....'); 
+            document.querySelector('.logout').classList.add('hide');
+            document.querySelector('.register').classList.remove('hide');
+            document.querySelector('.login').classList.remove('hide');
+            document.querySelector('.dash').classList.add('hide');
+            fetch('https://gift-a-smile.herokuapp.com/logout').then((res) => {
+                return res.json()
+            }).then((data) => {
+                console.log(data)
+            }).catch((e) => {
+                console.log(e)
+            })
+        })
+    </script>
+</body>
+</html>

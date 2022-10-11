@@ -1,0 +1,23 @@
+1. ensuring back button is disabled 
+
+2. ensuring user donations (payments) appear on dashboard [should work on this] 
+
+3. ensuring login, register and logout work fine 
+
+4. ensuring username (email) gets displayed once the user logs in
+
+5. make the UI mobile responsive 
+
+6. should handle 'login to donate' error properly
+
+
+
+=========================================================================
+
+then...
+
+1. create mongo atlas (replicating the same data) 
+
+2. host backend server apis on heroku (just find out the heroku publishing article or even the UI should be enough, since I have done it already) 
+
+=========================================================================

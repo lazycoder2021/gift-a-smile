@@ -1,0 +1,170 @@
+﻿body{
+    font-family: 'Segoe UI'; 
+    font-size:16px;
+    margin:0px;
+    padding:0px;
+    box-sizing:border-box;
+}
+
+a{
+    text-decoration:none; 
+    color:white;
+}
+
+.banner{
+    text-decoration:none; 
+    color:black;
+}
+
+
+
+.navbar{
+    position:relative;
+    border:1px solid black;
+    display:flex;
+    justify-content:space-between;
+    align-items:center; 
+    padding: 0px 150px;
+    background:black;
+    color:white;
+}
+
+.navleft{
+    cursor:pointer;
+}
+
+.navleft h2{
+    font-weight:400;
+}
+
+.navright{
+    display:flex;
+}
+
+.navright p{
+    padding:3px 9px;
+    text-transform: uppercase;
+    cursor:pointer; 
+}
+
+/**banner section***/
+
+.banner{
+    margin-top:40px;
+    text-align:center;
+}
+
+.banner h2{
+    font-size:34px;
+}
+
+.banner p{
+    font-size:20px;
+}
+
+/****user table section****/
+
+.userdata {
+    //border: 1px solid black;
+    margin: 20px auto;
+    padding: 20px;
+    display:flex;
+    width:1000px;
+    flex-wrap:wrap;
+}
+
+.userdatatable{
+    padding:20px;
+    border:1px solid black;
+    width:300px;
+    margin:auto;
+    display:flex;
+    padding:10px;
+    //justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.userimage img {
+    width: 100px;
+    height:100px;
+    border-radius:50%; 
+   border:1px solid black;
+   object-fit:cover; 
+}
+
+.userimage{
+    width:20%;
+    display:flex;
+    //  border:1px solid black;
+}
+
+.usertext {
+    display: flex;
+    width: 80%;
+    border: 1px solid black;
+    justify-content:space-between;
+}
+
+.userdata button{
+    cursor:pointer; 
+    background-color:black;
+    color:white;
+    border-radius:5px;
+}
+
+.userdetails{
+    border:1px solid black;
+    margin:auto; 
+    width:800px;
+    height:400px;
+    margin-top:150px;
+}
+
+/**forms***/
+
+form{
+    border:1px solid black;
+    padding:20px;
+    width:300px;
+    position:absolute;
+    right:20px;
+    margin-top:30px;
+}
+
+.hide{
+    display:none;
+}
+
+@media only screen and (max-width:500px){
+    
+
+    .userdata{
+        flex-direction:column; 
+        width:500px;
+        margin:0px auto;
+    }
+
+    .userdatatable{
+        width:480px;
+        margin-bottom:20px;
+        padding:10px;
+    }
+
+    .navbar{
+        width:500px;
+        padding:0px 50px; 
+    }
+
+    .navleft, .navright{
+        width:50%; 
+    }
+
+    .navleft h2{
+        width:400px;
+        font-size:18px;
+        margin-left:30px;
+    }
+
+
+}
